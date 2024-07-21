@@ -32,29 +32,51 @@ public class EmployeeController {
         return "Welcome to Employee Management";
     }
 
+    // http://localhost:8080/emp/addEmp
     @PostMapping("/addEmp")
     public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee){
         Employee emp = employeeServiceImpl.addEmployee(employee);
         return new ResponseEntity<Employee>(emp, HttpStatus.CREATED);
     }
 
+    // http://localhost:8080/emp/removeEmp/1
     @DeleteMapping("/removeEmp/{id}")
     public ResponseEntity<String> removeEmployee(@PathVariable int id){
         employeeServiceImpl.removeEmployee(id);
         return new ResponseEntity<String>("Removed Successfully", HttpStatus.ACCEPTED);
     }
 
+    // http://localhost:8080/emp/findEmp/2
     @GetMapping("/findEmp/{id}")
     public ResponseEntity<Employee> findEmployeeById(@PathVariable int id){
         Employee emps = employeeServiceImpl.findEmployeeById(id);
         return new ResponseEntity<Employee>(emps, HttpStatus.ACCEPTED);
     }
 
+    // http://localhost:8080/emp/all
     @GetMapping("/all")
     public ResponseEntity<List<Employee>> listOfEmployees(){
         List<Employee>listEmp = employeeServiceImpl.getAllEmployees();
         return new ResponseEntity<List<Employee>>(listEmp, HttpStatus.ACCEPTED);
     }
 
+
+    /*
+     * http://localhost:8080/emp/updateEmp/2
+     * 
+     * {
+            "id": 2,
+            "name": "updated name",
+            "age": 30,
+            "state": "delhi",
+            "type": "private",
+            "salary": 5000
+        }
+     */
+    @PutMapping("/updateEmp/{id}")
+    public ResponseEntity<Employee> updateEmployee(@PathVariable int id, @RequestBody Employee employeeDetails) {
+        Employee updatedEmployee = employeeServiceImpl.updateEmployee(id, employeeDetails);
+        return new ResponseEntity<>(updatedEmployee, HttpStatus.OK);
+    }
 
 }

@@ -54,4 +54,27 @@ public class EmployeeServiceImpl implements EmployeeService{
         return "updated successfully";
     }
 
+    @Override
+    public Employee updateEmployee(int id, Employee employeeDetails) {
+        // TODO Auto-generated method stub
+        Employee existingEmployee = employeeRepo.findById(id).orElseThrow(() -> new RuntimeException("Employee id " + id + " not found"));
+
+        if (employeeDetails.getName() != null) {
+            existingEmployee.setName(employeeDetails.getName());
+        }
+        if (employeeDetails.getAge() != 0) {
+            existingEmployee.setAge(employeeDetails.getAge());
+        }
+        if (employeeDetails.getState() != null) {
+            existingEmployee.setState(employeeDetails.getState());
+        }
+        if (employeeDetails.getType() != null) {
+            existingEmployee.setType(employeeDetails.getType());
+        }
+        if (employeeDetails.getSalary() != 0) {
+            existingEmployee.setSalary(employeeDetails.getSalary());
+        }
+
+            return employeeRepo.save(existingEmployee);
+    }
 }

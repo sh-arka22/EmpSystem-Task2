@@ -15,4 +15,6 @@ public interface EmployeeService {
     public List<Employee> getAllEmployees();
 
     public String updateEmployee(int id);
+
+    public Employee updateEmployee(int id, Employee employeeDetails);
 }
